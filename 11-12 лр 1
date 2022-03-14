@@ -112,3 +112,43 @@ Stack<T>::operator bool() const
 {
 	return real_size > 0;
 }
+cout << "Тестирование с целыми числами: " << endl;
+
+	Stack<int> st;
+
+	cout << "Is empty: " << st.is_empty() << endl;
+	st.push(1);
+	st.push(2);
+	st.push(3);
+	st.push(9);
+
+	st.print();
+	cout << st.pop() << endl;
+	cout << st.pop() << endl;
+	cout << "Is empty: " << st.is_empty() << endl;
+	cout << st.pop() << endl;
+	cout << st.pop() << endl;
+	cout << "Is empty: " << st.is_empty() << endl;
+
+
+	cout << "Тестирование с вещественными числами: " << endl;
+
+	Stack<double> st2;
+	double arr[] = { 5.3, 7.2, 0, 4.2 };
+	cout << "Успешность заполнения стека элементами сиз массива: " << st2.input(arr, 4) << endl;
+	st2.print();
+
+
+	cout << "Тестирование с символами: " << endl;
+
+	Stack<char> st3;
+	st3.push('a');
+	st3.push('q');
+	st3.push('m');
+	//st3.pop();
+	st3--;
+	st3 + 'g';
+	st3.print();
+	cout << "Есть ли в стеке элементы: ";
+	if (st3) cout << "да";
+	else cout << "нет";
