@@ -1,0 +1,114 @@
+template <typename T>
+class Stack
+{
+
+private:
+	static const long max_steck_size = 1024;
+	long real_size;
+	T* stack = new T[max_steck_size];
+
+public:
+	Stack();
+
+	~Stack();
+
+	void print();
+	bool push(T element);
+	T pop();
+	bool is_empty();
+	bool input(T arr[], int len);
+
+	void operator +(const T& element);
+	Stack<T>& operator --(int);
+	operator bool() const;
+};
+
+
+Реализация необходимых функций и операций:
+
+template <typename T>
+Stack<T>::~Stack()
+{
+	delete[] stack;
+}
+
+template <typename T>
+Stack<T>::Stack()
+{
+	real_size = 0;
+}
+
+template <typename T>
+void Stack<T>::print()
+{
+	// Вывод элементов на экран, начиная с последнего
+	for (long i = real_size - 1; i >= 0; i--)
+		cout << stack[i] << endl;
+}
+
+// Добавление элемента в вершину стека
+template <typename T>
+bool Stack<T>::push(T element)
+{
+	if (real_size + 1 > max_steck_size) // Если превышен допустимый размер стека
+		return false;
+	else
+	{
+		stack[real_size] = element; // Добавить элемент в конец стека
+		real_size++;
+	}
+	return true;
+}
+
+// Удаление элемента из вершины
+template <typename T>
+T Stack<T>::pop()
+{
+	if (!is_empty()) // Если в стеке есть элементы
+	{
+		real_size--;
+		return stack[real_size]; // Вернуть самый верхний (последний) элемент
+	}
+	else
+		throw - 1;
+}
+
+template <typename T>
+bool Stack<T>::is_empty()
+{
+	return real_size == 0;
+}
+
+template <typename T>
+bool Stack<T>::input(T arr[], int len)
+{
+	if (len > max_steck_size)
+		return false;
+
+	for (int i = 0; i < len; i++)
+		push(arr[i]);
+
+	return true;
+}
+
+template <typename T>
+void Stack<T>::operator + (const T& element)
+{
+	if (max_steck_size > real_size)
+		push(element);
+}
+
+template <typename T>
+Stack<T>& Stack<T>::operator --(int)
+{
+	if (real_size > 0)
+		pop();
+
+	return *this;
+}
+
+template <typename T>
+Stack<T>::operator bool() const
+{
+	return real_size > 0;
+}
