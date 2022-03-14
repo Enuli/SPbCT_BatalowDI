@@ -1,0 +1,227 @@
+// PKS_5_15_MFC_Car_Cost2Dlg.cpp : implementation file
+//
+
+#include "pch.h"
+#include "framework.h"
+#include "PKS_5_15_MFC_Car_Cost2.h"
+#include "PKS_5_15_MFC_Car_Cost2Dlg.h"
+#include "afxdialogex.h"
+
+#ifdef _DEBUG
+#define new DEBUG_NEW
+#endif
+
+// CAboutDlg dialog used for App About
+
+class CAboutDlg : public CDialogEx
+{
+public:
+	CAboutDlg();
+	double rezultOut = 0;
+	double iOneGasoline = 0;
+	double iFuelCons = 0;
+	double iDistTraveled = 0;
+
+// Dialog Data
+#ifdef AFX_DESIGN_TIME
+	enum { IDD = IDD_ABOUTBOX };
+#endif
+
+	protected:
+	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+
+// Implementation
+protected:
+	DECLARE_MESSAGE_MAP()
+};
+
+CAboutDlg::CAboutDlg() : CDialogEx(IDD_ABOUTBOX)
+{
+	double rezultOut = 0;
+}
+
+void CAboutDlg::DoDataExchange(CDataExchange* pDX)
+{
+	CDialogEx::DoDataExchange(pDX);
+}
+
+BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
+END_MESSAGE_MAP()
+
+
+// CPKS515MFCCarCost2Dlg dialog
+
+
+
+CPKS515MFCCarCost2Dlg::CPKS515MFCCarCost2Dlg(CWnd* pParent /*=nullptr*/)
+	: CDialogEx(IDD_PKS_5_15_MFC_CAR_COST2_DIALOG, pParent)
+{
+	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
+}
+
+void CPKS515MFCCarCost2Dlg::DoDataExchange(CDataExchange* pDX)
+{
+	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_EDIT1, oneGasoline);
+	DDX_Control(pDX, IDC_EDIT2, fuelCons);
+	DDX_Control(pDX, IDC_EDIT3, distTraveled);
+	DDX_Control(pDX, IDC_EDIT4, rezult);
+}
+
+BEGIN_MESSAGE_MAP(CPKS515MFCCarCost2Dlg, CDialogEx)
+	ON_WM_SYSCOMMAND()
+	ON_WM_PAINT()
+	ON_WM_QUERYDRAGICON()
+	ON_BN_CLICKED(IDOK, &CPKS515MFCCarCost2Dlg::OnBnClickedOk)
+	ON_BN_CLICKED(IDC_BUTTON1, &CPKS515MFCCarCost2Dlg::OnBnClickedButton1)
+	ON_EN_CHANGE(IDC_EDIT1, &CPKS515MFCCarCost2Dlg::OnEnChangeEdit1)
+	ON_BN_CLICKED(IDC_BUTTON2, &CPKS515MFCCarCost2Dlg::OnBnClickedButton2)
+	ON_EN_CHANGE(IDC_EDIT4, &CPKS515MFCCarCost2Dlg::OnEnChangeEdit4)
+END_MESSAGE_MAP()
+
+
+// CPKS515MFCCarCost2Dlg message handlers
+
+BOOL CPKS515MFCCarCost2Dlg::OnInitDialog()
+{
+	CDialogEx::OnInitDialog();
+
+	// Add "About..." menu item to system menu.
+
+	// IDM_ABOUTBOX must be in the system command range.
+	ASSERT((IDM_ABOUTBOX & 0xFFF0) == IDM_ABOUTBOX);
+	ASSERT(IDM_ABOUTBOX < 0xF000);
+
+	CMenu* pSysMenu = GetSystemMenu(FALSE);
+	if (pSysMenu != nullptr)
+	{
+		BOOL bNameValid;
+		CString strAboutMenu;
+		bNameValid = strAboutMenu.LoadString(IDS_ABOUTBOX);
+		ASSERT(bNameValid);
+		if (!strAboutMenu.IsEmpty())
+		{
+			pSysMenu->AppendMenu(MF_SEPARATOR);
+			pSysMenu->AppendMenu(MF_STRING, IDM_ABOUTBOX, strAboutMenu);
+		}
+	}
+
+	// Set the icon for this dialog.  The framework does this automatically
+	//  when the application's main window is not a dialog
+	SetIcon(m_hIcon, TRUE);			// Set big icon
+	SetIcon(m_hIcon, FALSE);		// Set small icon
+
+	// TODO: Add extra initialization here
+
+	return TRUE;  // return TRUE  unless you set the focus to a control
+}
+
+void CPKS515MFCCarCost2Dlg::OnSysCommand(UINT nID, LPARAM lParam)
+{
+	if ((nID & 0xFFF0) == IDM_ABOUTBOX)
+	{
+		CAboutDlg dlgAbout;
+		dlgAbout.DoModal();
+	}
+	else
+	{
+		CDialogEx::OnSysCommand(nID, lParam);
+	}
+}
+
+// If you add a minimize button to your dialog, you will need the code below
+//  to draw the icon.  For MFC applications using the document/view model,
+//  this is automatically done for you by the framework.
+
+void CPKS515MFCCarCost2Dlg::OnPaint()
+{
+	if (IsIconic())
+	{
+		CPaintDC dc(this); // device context for painting
+
+		SendMessage(WM_ICONERASEBKGND, reinterpret_cast<WPARAM>(dc.GetSafeHdc()), 0);
+
+		// Center icon in client rectangle
+		int cxIcon = GetSystemMetrics(SM_CXICON);
+		int cyIcon = GetSystemMetrics(SM_CYICON);
+		CRect rect;
+		GetClientRect(&rect);
+		int x = (rect.Width() - cxIcon + 1) / 2;
+		int y = (rect.Height() - cyIcon + 1) / 2;
+
+		// Draw the icon
+		dc.DrawIcon(x, y, m_hIcon);
+	}
+	else
+	{
+		CDialogEx::OnPaint();
+	}
+}
+
+// The system calls this function to obtain the cursor to display while the user drags
+//  the minimized window.
+HCURSOR CPKS515MFCCarCost2Dlg::OnQueryDragIcon()
+{
+	return static_cast<HCURSOR>(m_hIcon);
+}
+
+
+
+void CPKS515MFCCarCost2Dlg::OnBnClickedOk()
+{
+	// TODO: добавьте свой код обработчика уведомлений
+	CDialogEx::OnOK();
+
+}
+
+
+void CPKS515MFCCarCost2Dlg::OnBnClickedButton1()
+{
+	// TODO: добавьте свой код обработчика уведомлений
+	CString sText;
+	CAboutDlg dble;
+	GetDlgItemText(IDC_EDIT1, sText);
+	dble.iOneGasoline = _wtof(sText);
+	GetDlgItemText(IDC_EDIT2, sText);
+	dble.iFuelCons = _wtof(sText);
+	GetDlgItemText(IDC_EDIT3, sText);
+	dble.iDistTraveled = _wtof(sText);
+	//double rezult = 0;
+	dble.rezultOut += dble.iDistTraveled / 100 * dble.iFuelCons * dble.iOneGasoline;
+	dble.rezultOut = round(dble.rezultOut * 100) / 100;							//округление до 2го знака
+	sText.Format(_T("%1lf"), dble.rezultOut);
+	rezult.SetWindowText(sText);
+
+}
+
+
+void CPKS515MFCCarCost2Dlg::OnEnChangeEdit1()
+{
+	// TODO:  Если это элемент управления RICHEDIT, то элемент управления не будет
+	// send this notification unless you override the CDialogEx::OnInitDialog()
+	// функция и вызов CRichEditCtrl().SetEventMask()
+	// with the ENM_CHANGE flag ORed into the mask.
+
+	// TODO:  Добавьте код элемента управления
+}
+
+
+void CPKS515MFCCarCost2Dlg::OnBnClickedButton2()
+{
+	// TODO: добавьте свой код обработчика уведомлений
+	CString sText;
+	CAboutDlg dble;
+	oneGasoline.SetWindowText(L"16.5");
+	fuelCons.SetWindowText(L"8.4");
+	distTraveled.SetWindowText(L"240");
+	GetDlgItemText(IDC_EDIT1, sText);
+	dble.iOneGasoline = _wtof(sText);
+	GetDlgItemText(IDC_EDIT2, sText);
+	dble.iFuelCons = _wtof(sText);
+	GetDlgItemText(IDC_EDIT3, sText);
+	dble.iDistTraveled = _wtof(sText);
+	dble.rezultOut += dble.iDistTraveled / 100 * dble.iFuelCons * dble.iOneGasoline;
+	dble.rezultOut = round(dble.rezultOut * 100) / 100;							//округление до 2го знака
+	sText.Format(_T("%1lf"), dble.rezultOut);
+	rezult.SetWindowText(sText);
+}
