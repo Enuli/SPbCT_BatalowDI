@@ -1,0 +1,50 @@
+Car::Car(void) – конструктор по умолчанию.
+Car::~Car(void)- деструктор по умолчанию.
+Car::Car(string M, int C, int P) – конструктор с параметрами.
+Car::Car(const Car& car) – конструктор копирования.
+void Car::Setcyl(int C) – модификатор количества цилиндров.
+void Car::Setmark(string M) – модификатор марки.
+void Car::Setpower(int P) – модификатор мощности.
+string Getmark() – селектор марки.
+int Getcyl() – селектор количества цилиндров.
+int Getpower() – селектор мощности.
+Car& Car::operator=(const Car& c) - перегрузка операции присваивания.
+Класс Lorry:
+Lorry::Lorry(void):Car() - конструктор без параметров.
+Lorry::~Lorry(void) – дестрктор.
+Lorry::Lorry(string M, int C, int P, int G) :Car(M, C, P) - конструктор с параметрами.
+Lorry::Lorry(const Lorry &L) - конструктор копирования.
+void Lorry::SetGruz(int G) – модификатор.
+int Getgruz(); – селектор.
+Lorry& Lorry::operator=(const Lorry& l) - // оперция присваивания/
+istream& operator>>(istream& in, Lorry& l) - операция ввода.
+ostream& operator<<(ostream& out, const Lorry& l) - операция вывода.
+
+Глобальные функции:
+Класс Car:
+istream& operator>>(istream& in, Car& c) - глобальная функция для ввода.
+ostream& operator<<(ostream& out, const Car& c) - глобальная функция для вывода.
+Main.cpp (LR13.cpp):
+void f1(Car& c) - функция принимает объект базового класса как параметр.
+Car f2() - функция возвращает объект базового класса как результат.
+
+Функция main:
+Car a;
+    cin >> a;
+    cout << a;
+
+    Car b("Ford", 4, 115);
+    cout << b;
+    a = b;
+    cout << a;
+
+    Lorry c; // создать объект
+    cin >> c; // ввести значения атрибутов
+    cout << c; //вывести значения атрибутов
+
+    // принцип подстановки
+    // передаем объект класса Lorry
+    a = f2();
+
+    //создаем в функции объект класса Lorry
+    cout << a;
