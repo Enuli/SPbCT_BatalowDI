@@ -1,0 +1,32 @@
+/*
+Вычислить стоимость поездки на автомобили, если известно цена литра бензина,
+расход бензина на 100 км пути и пройденный километраж.
+*/
+using namespace std;
+#include <iostream>
+
+class CarWayCost {
+public:
+    double oneGasoline;                             //цена литра бензина
+    double fuelCons;                                //расход бензина на 100 км пути
+    double distTraveled;                            //пройденный километраж
+};
+double functCost(double onePrise, double consumpt, double  way) {
+    double rezult = 0;
+    rezult = way / 100 * consumpt * onePrise;
+    return rezult;
+}
+
+int main()
+{
+    setlocale(LC_ALL, "Russian");
+    CarWayCost carGasCost;
+    cout << "Введите стоимость литра бензина:"<<endl;
+    cin >> carGasCost.oneGasoline;
+    cout << "Введите расход бензина на 100км:" << endl;
+    cin >> carGasCost.fuelCons;
+    cout << "Введите пройденный километраж:" << endl;
+    cin >> carGasCost.distTraveled;
+    cout << "Стоимость поездки: ";
+    cout << functCost(carGasCost.oneGasoline, carGasCost.fuelCons, carGasCost.distTraveled);
+}
