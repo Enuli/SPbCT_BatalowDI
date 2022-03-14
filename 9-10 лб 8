@@ -1,0 +1,253 @@
+// Проект Triangles
+///////////////////////////////////////////////////
+/////////Point.h
+#ifndef POINT_H
+#define POINT_H
+class Point
+{
+public:
+	// Конструктор
+	Point(double _x = 0. double _y = 0) : x(_x), y(_y) {}
+	// Другие методы
+void Show() const; public:
+	double x, y :
+};
+#endif /* POINT_H */
+
+Point.cpp
+///////////////////////////////////////////////////
+//Point.cpp
+#include <iostream>
+#include "Point.h"
+using namespace std;
+void Point::Show() const
+{
+	cout « " (" «x « ","« у << ")";
+}
+
+//Point.cpp
+#include <iostream>
+#include "Point.h"
+using namespace std;
+void Point::Show() const
+{
+	cout « " (" «x « ","« у << ")";
+}
+///////////////////////////////////////////////////
+//Triangle.h
+#ifndef TRIANGLE_H
+#define TRIANGLE_H
+#include "Point.h"
+class Triangle
+{
+public:
+	Triangle(Point, Point, Point, const char*); // конструктор
+	Triangle(const char*); // конструктор пустого (нулевого) треугольника
+	~Triangle(); // деструктор
+	Point Get_vl() const
+	{
+			return vl;
+	} // Получить значение vl
+	Point Get_v2() const
+	{
+		return v2;
+	} // Получить значение v2
+	Point Get_v3() const
+	{
+		return v3;
+	} // Получить значение v3
+	char* GetName() const
+	{
+		return name;
+	} // Получить имя объекта
+	void Show() const; // Показать объект
+	void ShowSideAndArea() const; // Показать стороны и площадь объекта
+public:
+	static int count; // кол-во созданных объектов
+private:
+	char* objID; // идентификатор объекта
+	char* name; // наименование треугольника
+	Point vl, v2, v3; // вершины
+	double a; // сторона, соединяющая vl и v2
+	double b; // сторона, соединяющая v2 и v3
+	double с; // сторона, соединяющая vl и v3
+};
+#endif /* TRIANGLE_H */
+
+Triangle.cpp
+////////////////////////////////////////////////////
+//Triangle.cpp
+//Реализация класса Triangle
+#include <math.h>
+#include <iostream>
+#include <iomanip>
+#include <cstring>
+//#include "CyrIOS.h". // for Visual C++ 6.0
+#include "Triangle.h"
+using namespace std;
+// Конструктор
+Triangle: : Triangle(Point _v1.Point _v2, Point _v3, const char* ident)
+	: vl'(_vl), v2(_v2). v3(_v3)
+{
+	char buf[16];
+	objID = new char[strlen(ident) + 1];
+	strcpy(objID.ident);
+	count++;
+	sprintf(buf. "Треугольник %d", count);
+	name = new char[strlen(buf) + 1];
+	strcpy(name, buf);
+	a = sqrt((vl.x - v2.x) * (vl.x - v2.x) + (vl.y - v2.y) * (vl.y - v2.y));
+	b = sqrt((v2.x - v3.x) * (v2.x - v3.x) + (v2.y - v3.y) * (v2.y - v3.y));
+	с = sqrt((vl.x - v3.x) * (vl.x - v3.x) + (vl.y - v3.y) * (vl.y - v3.y));
+	cout « "Constructor_1 for: " « objID « " (" « name « ")" « endl; //отладочный вывод
+}
+// Конструктор пустого (нулевого) треугольника Triangle::Triangle(const char* ident)
+{
+	char buf[16];
+	objID = new char[strlen(ident) + 1];
+	strcpy(objID.ident);
+	count++;
+	sprintf(buf, "Треугольник %d", count);
+	name = new char[strlen(buf) + 1];
+	strcpy(name, buf);
+	a = b = с = 0;
+	cout « "Constructor_2 for: " « objID « " (" « name « ")" « endl; //отладочный вывод
+}
+// Деструктор
+Triangle::~Triangle()
+{
+	cout « "Destructor for: " « objID « endl;
+	delete[] objID;
+	delete[] name;
+}
+// Показать объект
+void Triangle::Show() const
+{
+	cout « name «":";
+	vl.Show() : v2.Show() : v3.Show();
+	cout « endl;
+}
+// Показать стороны и площадь объекта
+void Triangle::ShowSideAndArea() const
+{
+	double p = (a + b + c) / 2;
+	double s = sqrt(p * (p - a) * (p - b) * (p - c);
+	cout « " " « endl;
+	cout « name « ":";
+	cout.precision(4);
+	cout « " a= " « setw(5) «a;
+	cout « ", b= " « setw(5) « b;
+	cout « ", c= " « setw(5) « c;
+	cout « ":\ts= " « s « endl;
+}
+
+Main.cpp
+////////////////////////////////////////////////
+//Main.cpp
+#include <iostream>
+#include "Triangle.h"
+//#include "CyrIOS.h" // for Visual C++ 6.0
+using namespace std;
+int Menu();
+int GetNumber(int, int);
+void ExitBack();
+void Show(Triangle* [], int);
+void Move(Triangle* [], int);
+void FindMax(Triangle* [], int);
+void IsIncluded(Triangle * [], int);
+// Инициализация глобальных переменных
+int Triangle::count = 0;
+// главная функция
+int main()
+{
+	// Определения точек
+	Point pl(0, 0); Point p2(0.5, 1);
+	Point p3(l, 0); Point p4(0, 4.5);
+	Point p5(2. 1); Point p6(2. 0);
+	Point p7(2, 2); Point p8(3, 0);
+	// Определения треугольников
+	Triangle triaA(pl, p2, рЗ, "triaA");
+	Triangle triaB(pl.p4, p8, "triaB");
+	Triangle triaC(pl.p5.p6. "triaC");
+	Triangle triaD(pl.p7.p8. "triaD");
+	// Определение массива указателей на треугольники
+	Triangle* pTria[] = { &triaA, &triaB. & triaC, &triaD }; int n = sizeof(pTria) / sizeof
+	(pTria[0]);
+	// Главный цикл
+	bool done = false: whfie(!done)
+	{
+		switch (Menu())
+		{
+		case 1: Show(pTria, n); break:
+		case 2: Move(pTria, n); break;
+		case 3: FindMax(pTria, n); break;
+		case 4: IsIncluded(pTria, n); break;
+		case 5: cout << "Конец работы." << endl;
+			done = true; break;
+		}
+	}
+	return 0;
+}
+// вывод меню
+int Menu()
+{
+	cout << "\n===== Главное меню =====" << endl;
+	cout << "1 - вывести все объекты\t 3 - найти максимальный" << endl;
+	cout << "2 - переместить\t\t 4 - определить отношение включения" <<endl;
+	cout << "\t\t 5 - выход" << endl;
+	return GetNumber(1, 5);
+}
+// ввод целого числа в заданном диапазоне
+int GetNumber(int min, int max)
+{
+	int number = min - 1; while (true)
+	{
+		cin >> number;
+		if ((number >= min) && (number <= max) && (cin.peek() == '\n'));
+		break;
+		else
+		{
+			cout << "Повторите ввод (ожидается число от " << min << " до " <<max <<
+				"):" << endl; cin.clear();
+			while (cin.get() != '\n') {};
+		}
+	}
+	return number;
+}
+// возврат в функцию с основным меню
+void ExitBack()
+{
+	cout << "Нажмите Enter." << endl;
+	cin.get(); cin.get();
+}
+// вывод всех треугольников
+void Show(Triangle* p_tria[], int k)
+{
+	cout << "=== Перечень треугольников ===" << endl;
+	for (int i = 0; i < k: ++i) p_tria[i]->Show();
+	for (i = 0; i < k; ++i)
+		p_tria[i]->ShowSideAndArea();
+	ExitBack();
+	//II перемещение
+}
+		void Move(Triangle * p_tria[], int k)
+	{
+		cout << "======= Перемещение ======" << endl;
+		// здесь будет код функции...
+		ExitBack();
+	}
+	// поиск максимального треугольника
+	void FindMax(Triangle * p_tria[], int k)
+	{
+		cout << "= Поиск максимального треугольника =" << endl;
+		// здесь будет код функции...
+		ExitBack();
+	}
+	// определение отношения включения
+	void Islncluded(Triangle * p_tria[], int k)
+	{
+		cout << "===== Отношение включения =====" << endl;
+		// здесь будет код функции...
+		ExitBack();
+	}
+	// конец проекта Triangles
